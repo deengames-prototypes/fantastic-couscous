@@ -1,8 +1,6 @@
-import pytest
-import random
-
 from fantastic_couscous.ecs.entity import Entity
 from fantastic_couscous.ecs.bakhumri import Bakhumri
+
 
 class TestBakhumri:
 
@@ -42,11 +40,14 @@ class TestBakhumri:
         actual = Bakhumri(Tree)
         assert len(actual) == 0
 
+
 class Wall(Entity):
     pass
 
+
 class MetalWall(Wall):
     pass
+
 
 class Tree(Entity):
     pass
