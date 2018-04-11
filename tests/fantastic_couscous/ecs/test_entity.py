@@ -9,6 +9,16 @@ class TestEntity:
 
         actual = e.get(IntComponent)
         assert actual == expected
+
+    def test_set_overwrites_previous_value(self):
+        e = Entity()
+        expected = IntComponent(13)
+
+        e.set(IntComponent(1888))
+        e.set(expected)
+
+        actual = e.get(IntComponent)
+        assert actual == expected
     
     def test_has_retruns_true_if_component_exists(self):
         # Note: doesn't work for subclasses of the component
