@@ -21,7 +21,21 @@ class TestBakhumri:
         
         assert len(all_trees) == 1
         assert all_trees[0] == t
-    
+
+    def test_dunder_call_gets_all_entities_with_component(self):
+        e1 = Entity(Component1())
+        e2 = Entity(Component1())
+        e3 = Entity(Component2())
+
+        entities_with_component1 = Bakhumri(Component1)
+        entities_with_component2 = Bakhumri(Component2)
+
+        assert len(entities_with_component1) == 2
+        assert entities_with_component1 == [e1, e2]
+
+        assert len(entities_with_component2) == 1
+        assert entities_with_component2[0] == e3
+
     def test_dunder_call_gets_all_subclasses_of_that_type(self):
         w = Wall()
         m = MetalWall()
@@ -50,4 +64,12 @@ class MetalWall(Wall):
 
 
 class Tree(Entity):
+    pass
+
+
+class Component1:
+    pass
+
+
+class Component2:
     pass

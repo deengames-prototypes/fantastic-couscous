@@ -1,10 +1,8 @@
-class BakhumriDough:
-    # Useful for Entity.get('tag'). But because of this, consumers of our ECS
-    # need to call `.destroy` when they're done with entities.
-    def __init__(self):
-        self.all_entities = []
+from fantastic_couscous.ecs.entity import Entity
 
-    def __call__(self, component_class):
+
+class BakhumriDough:
+    def __call__(self, class_to_get):
         """
         Returns all entities of a specific class type (including subclasses).
         eg. if you create a Wall entity class, Entity.get_all(Wall) returns that
@@ -13,11 +11,14 @@ class BakhumriDough:
 
         eg. Bakhumri(Wall), Bakhumri(Entity)
         """
-        return [e for e in self.all_entities if e.has(component_class)]
+        if issubclass(class_to_get, Entity):
+            return [e for e in Entity.all_entities if issubclass(type(e), class_to_get)]
+        else:
+            return [e for e in Entity.all_entities if e.has(class_to_get)]
 
     # Used to clean up test fixtures quickly
     def reset(self):
-        self.all_entities = []
+        Entity.all_entities = []
 
 
 Bakhumri = BakhumriDough()

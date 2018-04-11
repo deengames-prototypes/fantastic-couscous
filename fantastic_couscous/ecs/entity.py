@@ -1,10 +1,11 @@
-from ecs.bakhumri import Bakhumri
-
-
 class Entity:
+    # Useful for Entity.get('tag'). But because of this, consumers of our ECS
+    # need to call `.destroy` when they're done with entities.
+    all_entities = []
+
     def __init__(self, *components):
         self.components = {}
-        Bakhumri.all_entities.append(self)
+        Entity.all_entities.append(self)
 
         for component in components:
             self.set(component)
@@ -20,4 +21,4 @@ class Entity:
         return self.components.get(clazz, None) is not None
 
     def destroy(self):
-        Bakhumri.all_entities.remove(self)
+        Entity.all_entities.remove(self)
