@@ -31,11 +31,22 @@ class Main:
     def process_input(self, key_pressed):
         if key_pressed == "ESCAPE" or key_pressed == 'q':
             self.game_over = True
+        elif key_pressed == "UP":
+            self.player.get(DisplayComponent).y -= 1
+        elif key_pressed == "DOWN":
+            self.player.get(DisplayComponent).y += 1
+        elif key_pressed == "LEFT":
+            self.player.get(DisplayComponent).x -= 1
+        elif key_pressed == "RIGHT":
+            self.player.get(DisplayComponent).x += 1
+        else:
+            print("You pressed {}".format(key_pressed))
 
     def draw(self):
         dc = self.player.get(DisplayComponent)
+        self.root_console.clear()
         self.root_console.draw_char(dc.x, dc.y, dc.character, dc.colour)
-            
+        tdl.flush()
 
 if __name__ == "__main__":
     Main().core_game_loop()
