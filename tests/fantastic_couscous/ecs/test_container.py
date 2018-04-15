@@ -13,18 +13,12 @@ class TestContainer:
         assert s1 in c._systems
         assert s2 not in c._systems
     
-    def test_add_entity_adds_it_to_all_systems(self):
+    def test_add_entity_adds_it_to_entities(self):
         e = Entity()
-        s1 = DummySystem()
-        s2 = DummySystem()
-        
         c = Container()
-        c.add_system(s1)
-        c.add_system(s2)
         c.add_entity(e)
 
-        assert e in s1.entities
-        assert e in s2.entities
+        assert e in c._entities
 
     def test_update_calls_update_on_all_systems(self):
         c = Container()
@@ -41,11 +35,7 @@ class TestContainer:
 
 class DummySystem:
     def __init__(self):
-        self.entities = []
         self.update_calls = 0
     
-    def add(self, entity):
-        self.entities.append(entity)
-    
-    def update(self):
+    def update(self, entities):
         self.update_calls += 1

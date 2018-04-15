@@ -1,3 +1,4 @@
+from fantastic_couscous.ecs.container import Container
 from fantastic_couscous.ecs.entity import Entity
 from fantastic_couscous.ecs.systems.display_system import DisplayComponent
 from fantastic_couscous.ecs.systems.display_system import DisplaySystem
@@ -11,13 +12,6 @@ class TestDisplaySystem:
         d = DisplaySystem(console)
         assert d._root_console == console
     
-    def test_add_adds_entity(self):
-        e = Entity
-        d = DisplaySystem("hi")
-        d.add(e)
-        
-        assert e in d._entities
-    
     def test_update_calls_draw_char_on_console_with_display_component_from_entity(self):
         player = Entity()
         player.set(DisplayComponent('@', "white", 28, 10))
@@ -25,13 +19,16 @@ class TestDisplaySystem:
         monster = Entity()
         monster.set(DisplayComponent('m', "green", 30, 8))
 
+        c = Container()
+        c.add_entity(player)
+        c.add_entity(monster)
         console = FakeConsole()
+
         ds = DisplaySystem(console)
-        ds.add(player)
-        ds.add(monster)
+        c.add_system(ds)
 
         # Act
-        ds.update()
+        c.update()
 
         # Assert
         pd = player.get(DisplayComponent)

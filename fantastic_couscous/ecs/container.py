@@ -8,14 +8,14 @@ class Container:
         Container.instance = self
         # Add default systems
         self._systems = []
+        self._entities = []
     
     def add_system(self, system):
         self._systems.append(system)
     
     def add_entity(self, entity):
-        for system in self._systems:
-            system.add(entity)
+        self._entities.append(entity)
     
     def update(self):
         for s in self._systems:
-            s.update()
+            s.update(self._entities)
