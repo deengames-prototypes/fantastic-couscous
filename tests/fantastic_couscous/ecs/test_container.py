@@ -18,7 +18,7 @@ class TestContainer:
         c = Container()
         c.add_entity(e)
 
-        assert e in c._entities
+        assert e in c.entities
 
     def test_update_calls_update_on_all_systems(self):
         c = Container()
