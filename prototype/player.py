@@ -6,9 +6,9 @@ class Player(Entity):
     def __init__(self):
         super().__init__(
             DisplayComponent('@', 0xFFFFFF, 40, 25),
-            KeyboardInputComponent(self.process_input))
+            KeyboardInputComponent(self._process_input))
         
-    def process_input(self, keys_pressed):
+    def _process_input(self, keys_pressed):
         for key_pressed in keys_pressed:
             if key_pressed == "UP":
                 self.get(DisplayComponent).y -= 1
