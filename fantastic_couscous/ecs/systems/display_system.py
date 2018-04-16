@@ -3,8 +3,8 @@ import tdl
 
 class DisplaySystem:
 
-    # Console is our production TDL console, or a mock.
     def __init__(self, console):
+        """Console is our production TDL console, or a mock."""
         self._root_console = console
 
     def update(self, entities):
@@ -12,7 +12,8 @@ class DisplaySystem:
         self._root_console.clear()
         
         for e in entities:
-            dc = e.get(DisplayComponent)
-            self._root_console.draw_char(dc.x, dc.y, dc.character, dc.colour)
+            if e.has(DisplayComponent):
+                dc = e.get(DisplayComponent)
+                self._root_console.draw_char(dc.x, dc.y, dc.character, dc.colour)
         
         tdl.flush()
