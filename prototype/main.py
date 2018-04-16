@@ -54,7 +54,5 @@ class Main:
 
         return keys_pressed # len > 0
         
-        
-
 if __name__ == "__main__":
     Main().core_game_loop()
