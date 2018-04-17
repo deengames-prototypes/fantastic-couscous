@@ -41,11 +41,13 @@ class Main:
                 self.keyboard_input_system.update(self.container.entities)
                 self.display_system.update(self.container.entities)
     
+    # TODO: extract out keys_pressed to it's testable
     def check_for_game_over(self):
         keys_pressed = [e for e in self.keyboard_input_system.get_all_keys_pressed() if e == 'ESCAPE' or e == 'q']
-        if len(keys_pressed) > 0:
+        if keys_pressed: # len > 0
             self.game_over = True
     
+    # TODO: extract out keys_pressed to it's testable    
     def check_if_time_passed(self):
         all_keys_pressed = self.keyboard_input_system.get_all_keys_pressed()
 

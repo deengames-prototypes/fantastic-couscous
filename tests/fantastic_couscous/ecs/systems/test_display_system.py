@@ -12,7 +12,7 @@ class TestDisplaySystem:
         d = DisplaySystem(console)
         assert d._root_console == console
     
-    def test_update_calls_draw_char_on_console_with_display_component_from_entity(self):
+    def test_update_calls_draw_char_on_console_with_display_component_from_entity(self, monkeypatch):
         player = Entity()
         player.set(DisplayComponent('@', "white", 28, 10))
 
@@ -28,6 +28,7 @@ class TestDisplaySystem:
         c.add_system(ds)
 
         # Act
+        monkeypatch.setattr("tdl.flush", lambda: None)        
         c.update()
 
         # Assert
@@ -37,7 +38,6 @@ class TestDisplaySystem:
         assert calls[0] == "clear"
         assert calls[1] == "draw_char({}, {}, {}, {})".format(pd.x, pd.y, pd.character, pd.colour)
         assert calls[2] == "draw_char({}, {}, {}, {})".format(md.x, md.y, md.character, md.colour)
-        assert tdl.tdl_calls[0] == "flush"
 
 class FakeConsole:
     def __init__(self):

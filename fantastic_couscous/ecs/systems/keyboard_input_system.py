@@ -2,8 +2,11 @@ from fantastic_couscous.ecs.components.keyboard_input_component import KeyboardI
 import tdl
 
 class KeyboardInputSystem:
-
+    """Handles keyboard input. Given an entity with a KeyboardInputComponent,
+    this system calls the on_keydown callback when a key is pressed."""
     def __init__(self):
+        # tdl.event.get() consumes events, so we have to keep track of them internally
+        # if we're calling get_all_keys_pressed several times when a key is pressed once.
         self.keys_pressed = []
 
     def update(self, entities):
