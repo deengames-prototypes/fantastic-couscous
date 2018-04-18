@@ -6,14 +6,14 @@ import tdl
 import pytest
 
 class TestKeyboardInputSystem:
-    def test_get_all_keys_pressed_returns_keys_from_update(self, monkeypatch):
+    def test_keys_pressed_returns_keys_from_update(self, monkeypatch):
         kis = KeyboardInputSystem()
-        assert kis.get_all_keys_pressed() == []
+        assert kis._keys_pressed == []
 
         monkeypatch.setattr("tdl.event.get", lambda: [KeyEvent("LEFT")])
         kis.update([])
 
-        assert kis.get_all_keys_pressed() == ["LEFT"]
+        assert kis._keys_pressed == ["LEFT"]
 
     def test_update_calls_keydown_callback_on_all_entities(self, monkeypatch):
         pressed = []
@@ -21,10 +21,10 @@ class TestKeyboardInputSystem:
         e = Entity(k)
 
         kis = KeyboardInputSystem()        
-        monkeypatch.setattr("tdl.event.get", lambda: [KeyEvent("LEFT")])
+        monkeypatch.setattr("tdl.event.get", lambda: [KeyEvent("RIGHT")])
         kis.update([e])
         
-        assert "LEFT" in pressed
+        assert "RIGHT" in pressed
 
 class KeyEvent:
     def __init__(self, key, event_type="KEYDOWN"):

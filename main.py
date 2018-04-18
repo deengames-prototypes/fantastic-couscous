@@ -34,29 +34,14 @@ class Main:
         self.container.update()
 
         while not self.game_over:
-            self.check_for_game_over()
-            time_passed = self.check_if_time_passed()
+            self.game_over = self.keyboard_input_system.check_for_game_over()
+            time_passed = self.keyboard_input_system.check_if_time_passed()
 
             if time_passed:
                 self.container.update()
             else:
                 self.keyboard_input_system.update(self.container.entities)
                 self.display_system.update(self.container.entities)
-    
-    # TODO: extract out keys_pressed to it's testable
-    def check_for_game_over(self):
-        keys_pressed = [e for e in self.keyboard_input_system.get_all_keys_pressed() if e == 'ESCAPE' or e == 'q']
-        if keys_pressed: # len > 0
-            self.game_over = True
-    
-    # TODO: extract out keys_pressed to it's testable    
-    def check_if_time_passed(self):
-        all_keys_pressed = self.keyboard_input_system.get_all_keys_pressed()
-
-        keys_pressed = [e for e in all_keys_pressed
-            if e == 'UP' or e == 'DOWN' or e == 'LEFT' or e == 'RIGHT']
-
-        return keys_pressed # len > 0
         
 if __name__ == "__main__":
     Main().core_game_loop()
