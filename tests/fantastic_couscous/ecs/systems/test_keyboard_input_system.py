@@ -26,6 +26,26 @@ class TestKeyboardInputSystem:
         
         assert "RIGHT" in pressed
 
+    @pytest.mark.parametrize("key, expected", [
+        ('ESCAPE', True), ('q', True),
+        ("LEFT", False), ("e", False), ("9", False)        
+    ])
+    def test_check_for_game_over_returns_true_for_escape_and_q(self, monkeypatch, key, expected):
+        kis = KeyboardInputSystem()
+        kis._keys_pressed.append(key)
+        actual = kis.check_for_game_over()
+        assert actual == expected
+    
+    @pytest.mark.parametrize("key, expected", [
+        ("LEFT", True), ("RIGHT", True), ("UP", True), ("DOWN", True),
+        ("ESACAPE", False), ("7", False), ("a", False)
+    ])
+    def test_check_if_time_passed_returns_true_for_arrow_keys(self, monkeypatch, key, expected):
+        kis = KeyboardInputSystem()
+        kis._keys_pressed.append(key)
+        actual = kis.check_if_time_passed()
+        assert actual == expected
+
 class KeyEvent:
     def __init__(self, key, event_type="KEYDOWN"):
         self.keychar = key

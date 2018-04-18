@@ -39,4 +39,7 @@ class KeyboardInputSystem:
         keys_pressed = [e for e in all_keys_pressed
             if e == 'UP' or e == 'DOWN' or e == 'LEFT' or e == 'RIGHT']
 
-        return keys_pressed # len > 0
+        if keys_pressed: # len > 0
+            return True
+        else:
+            return False
