@@ -1,6 +1,6 @@
 from fantastic_couscous.ecs.components.display_component import DisplayComponent
 from fantastic_couscous.ecs.components.keyboard_input_component import KeyboardInputComponent
-from prototype.player import Player
+from fantastic_couscous.entities.player import Player
 import pytest
 
 class TestPlayer:

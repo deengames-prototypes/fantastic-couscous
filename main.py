@@ -7,7 +7,7 @@ from fantastic_couscous.ecs.container import Container
 from fantastic_couscous.ecs.systems.display_system import DisplaySystem
 from fantastic_couscous.ecs.systems.keyboard_input_system import KeyboardInputSystem
 
-from player import Player
+from fantastic_couscous.entities.player import Player
 import tdl
 
 class Main:
@@ -16,6 +16,8 @@ class Main:
         self.game_over = False
         
         # We need a reference so we can draw even if there's no input (realtime)
+        tdl.set_font('arial10x10.png', greyscale=True, altLayout=True)
+        
         self.display_system = DisplaySystem(tdl.init(80, 50))
         # Needed so we can detect game-over and tell if time passed
         self.keyboard_input_system = KeyboardInputSystem()
